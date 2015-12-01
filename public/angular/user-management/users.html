@@ -1,0 +1,19 @@
+<table ng-table="tableParams" class="table">
+    <tbody>
+    <tr ng-repeat="user in $data">
+        <td data-title="'ID'" sortable="'id'" name="id" class="col-id">
+            {{user.id}}
+        </td>
+        <td data-title="'Name'" sortable="'name'" sort-indicator="'span'" name="name" class="col-string">
+            {{user.name}}
+        </td>
+        <td data-title="'Email'" class="col-string">
+            {{user.email}}
+        </td>
+        <td data-title="'Actions'" class="col-actions">
+            <a ng-href="#/edit/{{user.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
+            <a ng-hide="user.super_admin == true" ng-click="destroyUser(user)"><i class="glyphicon glyphicon-trash"></i></a>
+        </td>
+    </tr>
+    </tbody>
+</table>

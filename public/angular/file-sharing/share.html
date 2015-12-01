@@ -1,0 +1,123 @@
+<form id="form" novalidate ng-model="form" name="form">
+  <div class="col-xs-12">
+
+
+    <a href="javascript:$('#location').toggle()">You are using the Hong Kong server. Click here to change</a>
+    <div style="display:none" id="location">
+      <h4>Select your closest location:</h4>
+      <select class="form-control">      
+          <option>Hong Kong</option>
+      </select>
+    </div>
+    <h3>Recipients</h3>
+    <div class="form-group has-feedback" ng-class='{"has-error" :recipient.valid == false}'>
+      
+      <div>
+        <button type="btn" class="btn-sm btn-primary pull-right" ng-disabled="sending == true" ng-click='addRecipient()'><span class="glyphicon glyphicon-plus"></span> Add recipient</button><input type="email" style="width:70%" class="form-control" placeholder="Enter email" ng-disabled="sending == true" ng-model='recipient.email' typeahead="recipient.email for recipient in users | filter:$viewValue | limitTo:8">
+      </div>
+      <div class="recipient-list">
+        <span ng-repeat='r in recipients'>{{r.email}}
+          <a href="javascript:void();" ng-click="removeRecipient($index)"><span class="glyphicon glyphicon-remove-sign"></span></a>
+        </span>
+      </div>
+      <div ng-show="recipient.valid == false">
+        <span class="glyphicon glyphicon-remove"></span> Please enter a valid email address
+      </div>
+      <div ng-show="errors['recipient'] != undefined && errors['recipient'].length">
+        <span class="glyphicon glyphicon-remove"></span> {{ errors['recipient'] }}
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <h3>Your message:</h3>
+      <textarea class="form-control" rows="3" placeholder="Message" ng-disabled="sending == true" ng-model="message"></textarea> 
+    </div>
+    
+    <h3>Files</h3>
+     <div class='row-fluid' ng-show="errors['file'] != undefined && errors['file'].length">
+          <span class="glyphicon glyphicon-remove"></span> {{ errors['file'] }}
+        </div>
+    <div ng-class="class" flow-drag-enter="class='dragarea dropping'" flow-drag-leave="class='dragarea'"  flow-init="options" 
+                  flow-drop
+                  flow-name="$parent.flow"
+                  flow-file-added="addFile($file)"
+                  flow-files-added="addFiles($files)"
+                  flow-file-success="fileUploaded($message, $file)" >
+      <div class="form-group uploaded-files">
+        <ul>
+          <li ng-repeat="file in files">
+            {{file.original_filename}} <a href="javascript:void(0)" ng-click='removeUploadedFile($index)' ><span class="glyphicon glyphicon-remove-sign"></span></a>
+          </li>                   
+        </ul>
+      
+        <div flow-transfers>
+          <table class="table table-clean" ng-show='fileCount > 0'>
+            <tr ng-repeat="file in transfers">
+              <td>{{file.name}} ({{file.size / 1024 /1024 | number : 2}} Mo)
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="{{file.progress() * 100}}" aria-valuemin="0" aria-valuemax="100" style="width: {{file.progress() * 100}}%;">
+                    <span class="sr-only">{{file.progress() * 100}} Complete</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div ng-hide='file.progress() == 1'>
+                  <input class="generated-link" style="width:100%" type="text" ng-show="file.actualFile" value="{{file.actualFile}}">
+                  <div class="uploaderbtns btn-group btn-group-xs">
+                    <a class="btn btn-xs btn-default" ng-click="file.pause()" ng-hide="file.paused || file.actualFile"><span class="glyphicon glyphicon-pause"></span></a>
+                    <a class="btn btn-xs btn-default" ng-click="file.resume()" ng-show="file.paused"><span class="glyphicon glyphicon-play"></span></a>
+                    <a class="btn btn-default" ng-click="file.cancel()" ng-hide="file.actualFile"><span class="glyphicon glyphicon-stop"></span></a>
+                    <a class="btn btn-default" ng-click="file.retry()" ng-show="file.error"><span class="glyphicon glyphicon-retweet"></span></a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <span class="btn-sm btn-primary pull-right" flow-btn ng-disabled="sending == true" flow-drag-enter="style={width:'1000px', left:'0'}" flow-drag-leave="style={}">
+            <!--[if IE 8]>    
+              <input type="file" multiple="multiple" style="visibility:hidden; width:150px; height:50px; position:absolute; top:-15px; left:-15px;"/>
+            <![endif]-->
+            <span class="glyphicon glyphicon-plus"></span> Browse</span>				
+            <span class="pull-right drag-text">Drag and drop your files in this area or </span>
+
+            <ul class='row-fluid files' ng-show="info.file.length">
+              <li ng-repeat='f in info.file'> 
+                <span class="glyphicon glyphicon-remove"></span> {{ f }}
+              </li>
+            </ul>
+          </div>
+        </div>          
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Expiry</h3>
+        <div class="col-md-2">
+          1 Day
+        </div>
+        <div class="col-md-7">
+          <input id="ex1" style="width:300px" data-slider-id='ex1Slider' type="text"/>
+        </div>
+        <div class="col-md-3">
+          30 Days (max)
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="form-group pull-right col-xs-12 text-right" style="margin-top:15px">
+  <button ng-disabled="sending == true" type="btn" class="btn btn-primary"  ng-click="send()">
+      <span ng-hide='sending'>SEND</span>
+      <span ng-show='sending'>Sending..</span>
+  </button>
+</div>
+</form>
+
+
+
+
+

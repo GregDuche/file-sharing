@@ -1,0 +1,68 @@
+<div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation">
+        <a href="#sent" aria-controls="sent" role="tab" data-toggle="tab">Sent files</a>
+    </li>
+    <li role="presentation">
+        <a href="#received" aria-controls="received" role="tab" data-toggle="tab">Received files</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="sent">
+        <table ng-table="tableParams" class="table">
+            <tbody>
+                <tr ng-repeat="sharedFile in $data">
+                    
+                    <td data-title="'ID'" sortable="'id'" name="id" class="col-id">
+                        {{sharedFile.id}}
+                    </td>
+                    <td data-title="'Files'" sortable="'name'" sort-indicator="'span'" name="name" class="col-string">
+                        <div ng-repeat="file in sharedFile.file">
+                            {{file.filename}}
+                        </div>
+                    </td>
+                    <td data-title="'Status'" sortable="'name'" sort-indicator="'span'" name="name" class="col-string">
+                        {{sharedFile.request.data.status}}
+                    </td>
+                    <td data-title="'Recipients'" class="col-string">
+                        <div ng-repeat="recipient in sharedFile.request.data.recipients.data">{{recipient.email}}</div>
+                    </td>
+                    <td data-title="'Actions'" class="col-actions">
+                        <a href="/download/{{sharedFile.id}}" ng-show="sharedFile.request.data.status == 'PROCESSED'"><i class="glyphicon glyphicon-download"></i></a>
+                        <a href="javascript:void(0)" ng-show="sharedFile.request.data.status == 'PROCESSED'" ng-click="destroyFile(sharedFile)"><i class="glyphicon glyphicon-trash"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="received">
+        <table ng-table="receivedTableParams" class="table">
+            <tbody>
+                <tr ng-repeat="recipient in $data">
+                    
+                    <td data-title="'ID'" sortable="'id'" name="id" class="col-id">
+                        {{recipient.id}}
+                    </td>
+                    <td data-title="'Files'" sortable="'name'" sort-indicator="'span'" name="name" class="col-string">
+                        <div ng-repeat="sharedfile in recipient.request.data.sharedFiles.data">
+                            <a href="/download/{{sharedfile.id}}">{{sharedfile.file.data.filename}} <i class="glyphicon glyphicon-download"></i></a>
+                        </div>
+                    </td>
+                    <td data-title="'Message'" class="col-string">
+                       {{recipient.request.data.message}}
+                    </td>
+                     <!--a href="/download/{{sharedFile.id}}" ng-show="sharedFile.request.data.status == 'PROCESSED'"><i class="glyphicon glyphicon-download"></i></a-->
+                   
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+
+</div>
+
+
+
+

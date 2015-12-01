@@ -1,0 +1,143 @@
+html, body {
+    height:100%;
+}   
+
+body {
+    background:url('/images/background.jpg') fixed;
+    background-size:cover;
+
+}
+
+.app {
+    background:#505959;
+    margin-top:2%;
+    padding:50px;
+}
+
+.navbar {
+    background:white;
+    border-radius:0 !important;        
+}
+
+.navbar li a {
+    padding:37px;
+    font-size:20px;
+}
+
+.navbar-header {
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.app {
+    color:white;
+    font-family:"aktiv-grotesk-std", sans-serif;
+    opacity:0.95;
+}
+
+
+.btn-primary {
+    background:none;
+    border:solid 3px white;
+    border-radius:0;
+    font-size:20px;
+}
+
+
+.btn-sm {
+    font-size:14px;
+    border:solid 2px;
+}
+
+.btn-primary:hover, .btn-primary:active {
+    background:white;
+    color:#505959;
+    border:solid 3px white;
+}
+
+ul {
+    list-style:none;
+    padding:0;
+}
+
+.settings {
+    font-size:30px;
+    padding:0;
+}
+
+.app a {
+    color:white !important;
+}
+
+.app a:hover,.app  a:visited,.app  a:active {
+    color:white !important;
+}
+
+.register-link {
+    font-size:15px;
+    padding:0 15px;
+}
+
+.login-button {
+    padding-top:20px;
+}
+
+.btn-none {
+    border:none;
+}
+
+.recipient-list {
+    margin-top:15px;
+}
+.error-message {
+    margin-top:15px;
+}
+
+.dragarea {
+    border:dotted 3px;
+    padding-right:20px;
+
+}
+
+.drag-text {
+    padding-top:5px;
+    padding-right:15px;
+}
+
+.dropping {
+    background:green;
+}
+
+.uploaded-files{
+    padding:15px;
+}
+
+.uploaderbtns {
+
+    margin-top:15px;
+}
+
+.table-clean, .table-clean tr, .table-clean td {
+    border:none;
+}
+
+.nav-tabs li a {
+    border:solid 1px;
+}
+
+.app .pagination a:hover,.app .pagination  a:visited,.app .pagination  a:active {
+    color:#777 !important;
+}
+
+.app .pagination .active a{
+     color:white !important;
+}
+
+
+.user {
+    background:#f6f6f6;
+    padding:5px;
+    padding-right:15px;
+    text-align:right;
+    font-size:11px;
+}
